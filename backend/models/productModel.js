@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const productSchema = new mongoose.Schema({
     name:{
@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
         required: [true, "Please enter product Price"],
         maxLength: [8, "Price cannot exceed 8 characters"]
     },
-    rating:{
+    ratings:{
         type: Number,
         default: 0
     },
@@ -45,26 +45,37 @@ const productSchema = new mongoose.Schema({
         default: 1
     },
 
-    numOfReviews: [
+    numOfReviews: {
+        type: Number,
+        default: 0,
+      },
+    reviews: [
         {
-            name: {
-                type: String,
-                required: true
-            },
+          user: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            required: true,
+          },
+          name: {
+            type: String,
+            required: true,
+          },
+          rating: {
+            type: Number,
+            required: true,
+          },
+          comment: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
 
-            rating: {
-                type: Number,
-                required: true,
-            },
-
-            comment: {
-                type: String,
-                required: [true, "Comment is necessary"]
-            }
-
-        }
-    ],
-
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true
+    },
     createdAt:{
         type: Date,
         default: Date.now()
