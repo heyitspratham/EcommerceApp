@@ -45,17 +45,17 @@ export const productSlice = createSlice({
 })
 
 export const productDetailsSlice = createSlice({
-  name:'products',
+  name:'productDetails',
   initialState,
   reducers:{
-    ALL_PRODUCTS_REQUEST(state){
+    PRODUCT_DETAILS_REQUEST(state){
         return {
           ...state,
           loading:true,
           products:[],
         }
     },
-    ALL_PRODUCTS_SUCCESS(state,action){
+    PRODUCT_DETAILS_SUCCESS(state,action){
       return{
         ...state,
         loading:false,
@@ -63,18 +63,12 @@ export const productDetailsSlice = createSlice({
         productsCount: action.payload.productsCount,
       }
     },
-    ALL_PRODUCTS_FAIL(state, action){
+    PRODUCT_DETAILS_FAIL(state, action){
       return{
         ...state,
         loading:false,
         error: action.payload
         // console.log("nnn");
-      }
-    },
-    CLEAR_ERRORS(state){
-      return {
-        ...state,
-        error: null
       }
     }
 
@@ -82,5 +76,11 @@ export const productDetailsSlice = createSlice({
 })
 
 export const {ALL_PRODUCTS_REQUEST, ALL_PRODUCTS_FAIL, ALL_PRODUCTS_SUCCESS, CLEAR_ERRORS} = productSlice.actions;
+export const {PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_SUCCESS} = productDetailsSlice.actions;
 
-export default productSlice.reducer
+const rootReducer = combineReducers({
+  product: productSlice.reducer,
+  productDetails: productDetailsSlice.reducer
+});
+
+export default rootReducer;

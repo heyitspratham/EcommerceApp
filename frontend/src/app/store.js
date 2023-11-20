@@ -1,9 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
-import productReducer from "../features/productFeatures/productSlice"
+import rootReducer from "../features/productFeatures/productSlice"
 
 
 const store = configureStore({
-    reducer: {product:productReducer},
+    reducer: rootReducer,
 })
 
 
